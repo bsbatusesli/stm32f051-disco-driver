@@ -190,6 +190,17 @@ typedef struct
 #define SYSCFG_PCLK_EN() 	(RCC->APB2ENR |= (1 << 0))
 #define SYSCFG_PCLK_DI() 	(RCC->APB2ENR &= ~(1 << 0))
 
+/*
+ * General macros
+ */
+
+
+#define ENABLE 				1
+#define DISABLE 			0
+#define RESET 				DISABLE
+#define SET					ENABLE
+#define GPIO_PIN_SET		SET
+#define GPIO_PIN_RESET		RESET
 
 
 #endif /* STM32F05XX_H_ */
