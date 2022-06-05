@@ -24,6 +24,7 @@
 #endif
 
 #include "stm32f05xx.h"
+#include "stm32f05xx_gpio_driver.h"
 
 int main(void)
 {
