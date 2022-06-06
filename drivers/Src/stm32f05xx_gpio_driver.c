@@ -58,6 +58,14 @@ void GPIO_Init(GPIO_Handle_t *pGPIO_Handle)
 	}
 
 }
+
+/* ---------------------------------------------------------------------------
+ * @name: 			GPIO_Init
+ * @desc:			Deinitialize the GPIO of given port base address
+ *
+ * @in[pGPIOx]:		pointer which holds base address of GPIO
+ * @returns: 		none
+ * --------------------------------------------------------------------------*/
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
 
@@ -125,32 +133,95 @@ void GPIO_PeripClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 }
 
 /* Read and write Data */   
+/* ---------------------------------------------------------------------------
+ * @name: 			GPIO_ReadFromInputPin
+ * @desc:			Reads input value from given pin number
+ *
+ * @in[pGPIOx]:		pointer which holds base address of GPIO
+ * @in[PinNumber]:	desired pin number to read
+ * @returns: 		read value
+ * --------------------------------------------------------------------------*/
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
 	return 0;
 }
+
+/* ---------------------------------------------------------------------------
+ * @name: 			GPIO_ReadFromInputPort
+ * @desc:			Reads input value from given input port
+ *
+ * @in[pGPIOx]:		pointer which holds base address of GPIO
+ * @returns: 		Current values in pins of given port
+ * --------------------------------------------------------------------------*/
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 {
 	return 0;
 }
+
+/* ---------------------------------------------------------------------------
+ * @name: 			GPIO_WriteToInputPin
+ * @desc:			Write the data to the given pin number
+ *
+ * @in[pGPIOx]:		pointer which holds base address of GPIO
+ * @in[PinNumber]:	desired pin number to read
+ * @in[data]:		8bit data which desired to written
+ * @returns: 		none
+ * --------------------------------------------------------------------------*/
 void GPIO_WriteToInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Data)
 {
 
 }
+
+/* ---------------------------------------------------------------------------
+ * @name: 			GPIO_WriteToInputPin
+ * @desc:			Write the value to all pins in given GPIO port
+ *
+ * @in[pGPIOx]:		pointer which holds base address of GPIO
+ * @in[PinNumber]:	desired pin number to read
+ * @in[data]:		16bit data which desired to written bit position indicates respected pin
+ * @returns: 		none
+ * --------------------------------------------------------------------------*/
 void GPIO_WriteToInputPort(GPIO_RegDef_t *pGPIOx, uint16_t Data)
 {
 
 }
+
+
+/* ---------------------------------------------------------------------------
+ * @name: 			GPIO_ToggleOutputPin
+ * @desc:			Toggles pin which is given in pinNumber
+ *
+ * @in[pGPIOx]:		pointer which holds base address of GPIO
+ * @in[PinNumber]:	desired pin number to toggle
+ * @returns: 		none
+ * --------------------------------------------------------------------------*/
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
 
 }
 
 /* IRQ Handling */
+/* ---------------------------------------------------------------------------
+ * @name: 			GPIO_IRQConfig
+ * @desc:			Configration function to Interrupt service routine
+ *
+ * @in[IRQNumber]:
+ * @in[IRQPriority]:
+ * @in[EnorDi]:
+ * @returns: 		none
+ * --------------------------------------------------------------------------*/
 void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnorDi)
 {
 
 }
+
+/* ---------------------------------------------------------------------------
+ * @name: 			GPIO_IRQHandle
+ * @desc:
+ *
+ * @in[PinNumber]:
+ * @returns: 		none
+ * --------------------------------------------------------------------------*/
 void GPIO_IRQHandle(uint8_t PinNumber)
 {
 
