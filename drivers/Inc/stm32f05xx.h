@@ -191,6 +191,16 @@ typedef struct
 #define SYSCFG_PCLK_DI() 	(RCC->APB2ENR &= ~(1 << 0))
 
 /*
+ * Peripheral Register Reset Macros
+ */
+#define GPIOA_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 17));(RCC ->AHBRSTR &= ~(1 << 17))} while(0)
+#define GPIOB_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 18));(RCC ->AHBRSTR &= ~(1 << 18))} while(0)
+#define GPIOC_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 19));(RCC ->AHBRSTR &= ~(1 << 19))} while(0)
+#define GPIOD_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 20));(RCC ->AHBRSTR &= ~(1 << 20))} while(0)
+#define GPIOE_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 21));(RCC ->AHBRSTR &= ~(1 << 21))} while(0)
+#define GPIOF_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 22));(RCC ->AHBRSTR &= ~(1 << 22))} while(0)
+
+/*
  * General macros
  */
 

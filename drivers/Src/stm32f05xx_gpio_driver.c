@@ -54,7 +54,11 @@ void GPIO_Init(GPIO_Handle_t *pGPIO_Handle)
 	//5. Config alternate function mode
 	if(pGPIO_Handle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN)
 	{
+		uint8_t arr_index, reg_index;
+		arr_index = pGPIO_Handle->GPIO_PinConfig.GPIO_PinNumber / 8; // if 1 -> Alternate high reg, 0-> low reg
+		reg_index = pGPIO_Handle->GPIO_PinConfig.GPIO_PinNumber % 8; // gives register index
 
+		pGPIO_Handle->pGPIOx->AFR[arr_index] = (pGPIO_Handle->GPIO_PinConfig.GPIO_AltFuncMode << (4 * reg_index));
 	}
 
 }
@@ -68,12 +72,30 @@ void GPIO_Init(GPIO_Handle_t *pGPIO_Handle)
  * --------------------------------------------------------------------------*/
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
-
+	switch(pGPIOx) {
+			case GPIOA:
+				GPIOA_REG_RESET();
+				break;
+			case GPIOB:
+				GPIOB_REG_RESET();
+				break;
+			case GPIOC:
+				GPIOC_REG_RESET();
+				break;
+			case GPIOD:
+				GPIOD_REG_RESET();
+				break;
+			case GPIOE:
+				GPIOE_REG_RESET();
+				break;
+			case GPIOF:
+				GPIOF_REG_RESET();
+				break;
 }
 
 
-/* GPIO Peripheral Clock Setup*/
-/* ---------------------------------------------------------------------------
+/* GPIO Peripheral Clock Setup
+ * ---------------------------------------------------------------------------
  * @name: 			GPIO_PeripClockControl
  * @desc:			Enable/Disable Peripheral clock given port
  *
@@ -132,8 +154,8 @@ void GPIO_PeripClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 	}
 }
 
-/* Read and write Data */   
-/* ---------------------------------------------------------------------------
+/* Read and write Data   
+ * ---------------------------------------------------------------------------
  * @name: 			GPIO_ReadFromInputPin
  * @desc:			Reads input value from given pin number
  *
