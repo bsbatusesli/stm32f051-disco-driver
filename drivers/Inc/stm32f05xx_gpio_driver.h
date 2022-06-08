@@ -87,6 +87,7 @@ void GPIO_IRQHandle(uint8_t PinNumber);
 #define GPIP_PD				2
 
 // @GPIO_PIN_NO
+#define GPIO_PIN_0			0
 #define GPIO_PIN_1			1
 #define GPIO_PIN_2			2
 #define GPIO_PIN_3			3
