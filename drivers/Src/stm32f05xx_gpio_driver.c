@@ -91,6 +91,7 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 			case GPIOF:
 				GPIOF_REG_RESET();
 				break;
+	}
 }
 
 
@@ -165,7 +166,9 @@ void GPIO_PeripClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
  * --------------------------------------------------------------------------*/
 uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
-	return 0;
+	uint8_t value;
+	value = (pGPIOx->IDR >> PinNumber) & 0x1; // mask other values
+	return value;
 }
 
 /* ---------------------------------------------------------------------------
@@ -177,11 +180,13 @@ uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
  * --------------------------------------------------------------------------*/
 uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 {
-	return 0;
+	uint16_t value;
+	value = pGPIOx->IDR;
+	return value;
 }
 
 /* ---------------------------------------------------------------------------
- * @name: 			GPIO_WriteToInputPin
+ * @name: 			GPIO_WriteToOutputPin
  * @desc:			Write the data to the given pin number
  *
  * @in[pGPIOx]:		pointer which holds base address of GPIO
@@ -189,13 +194,20 @@ uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
  * @in[data]:		8bit data which desired to written
  * @returns: 		none
  * --------------------------------------------------------------------------*/
-void GPIO_WriteToInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Data)
+void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Data)
 {
+	if(Data % 2 == 1)
+	{
+		pGPIOx->ODR |= (1 << PinNumber);
+	}else
+	{
+		pGPIOx->ODR &= ~(1 << PinNumber);
+	}
 
 }
 
 /* ---------------------------------------------------------------------------
- * @name: 			GPIO_WriteToInputPin
+ * @name: 			GPIO_WriteToOutputPin
  * @desc:			Write the value to all pins in given GPIO port
  *
  * @in[pGPIOx]:		pointer which holds base address of GPIO
@@ -203,9 +215,9 @@ void GPIO_WriteToInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Data
  * @in[data]:		16bit data which desired to written bit position indicates respected pin
  * @returns: 		none
  * --------------------------------------------------------------------------*/
-void GPIO_WriteToInputPort(GPIO_RegDef_t *pGPIOx, uint16_t Data)
+void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t Data)
 {
-
+	pGPIOx->ODR = Data;
 }
 
 
@@ -220,6 +232,7 @@ void GPIO_WriteToInputPort(GPIO_RegDef_t *pGPIOx, uint16_t Data)
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber)
 {
 
+	pGPIOx->ODR ^= (1 << PinNumber);
 }
 
 /* IRQ Handling */
