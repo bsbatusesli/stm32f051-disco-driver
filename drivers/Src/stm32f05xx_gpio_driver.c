@@ -72,26 +72,24 @@ void GPIO_Init(GPIO_Handle_t *pGPIO_Handle)
  * --------------------------------------------------------------------------*/
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
-	switch(pGPIOx) {
-			case GPIOA:
+			if(pGPIOx == GPIOA)
 				GPIOA_REG_RESET();
-				break;
-			case GPIOB:
+
+			else if(pGPIOx == GPIOB)
 				GPIOB_REG_RESET();
-				break;
-			case GPIOC:
+
+			else if(pGPIOx == GPIOC)
 				GPIOC_REG_RESET();
-				break;
-			case GPIOD:
+
+			else if(pGPIOx ==  GPIOD)
 				GPIOD_REG_RESET();
-				break;
-			case GPIOE:
+
+			else if(pGPIOx ==  GPIOE)
 				GPIOE_REG_RESET();
-				break;
-			case GPIOF:
+
+			else if(pGPIOx == GPIOF)
 				GPIOF_REG_RESET();
-				break;
-	}
+
 }
 
 
@@ -108,49 +106,43 @@ void GPIO_PeripClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 {
 	if(EnorDi == ENABLE)
 	{
-		switch(pGPIOx) {
-			case GPIOA:
-				GPIOA_PCLK_EN();
-				break;
-			case GPIOB:
-				GPIOB_PCLK_EN();
-				break;
-			case GPIOC:
-				GPIOC_PCLK_EN();
-				break;
-			case GPIOD:
-				GPIOD_PCLK_EN();
-				break;
-			case GPIOE:
-				GPIOE_PCLK_EN();
-				break;
-			case GPIOF:
-				GPIOF_PCLK_EN();
-				break;
-		}
+		if(pGPIOx == GPIOA)
+			GPIOA_PCLK_EN();
+
+		else if(pGPIOx == GPIOB)
+			GPIOB_PCLK_EN();
+
+		else if(pGPIOx == GPIOC)
+			GPIOC_PCLK_EN();
+
+		else if(pGPIOx ==  GPIOD)
+			GPIOD_PCLK_EN();
+
+		else if(pGPIOx ==  GPIOE)
+			GPIOE_PCLK_EN();
+
+		else if(pGPIOx == GPIOF)
+			GPIOF_PCLK_EN();
 	}
 	else if(EnorDi == DISABLE)
 	{
-		switch(pGPIOx) {
-			case GPIOA:
-				GPIOA_PCLK_DI();
-				break;
-			case GPIOB:
-				GPIOB_PCLK_DI();
-				break;
-			case GPIOC:
-				GPIOC_PCLK_DI();
-				break;
-			case GPIOD:
-				GPIOD_PCLK_DI();
-				break;
-			case GPIOE:
-				GPIOE_PCLK_DI();
-				break;
-			case GPIOF:
-				GPIOF_PCLK_DI();
-				break;
-		}
+		if(pGPIOx == GPIOA)
+			GPIOA_PCLK_DI();
+
+		else if(pGPIOx == GPIOB)
+			GPIOB_PCLK_DI();
+
+		else if(pGPIOx == GPIOC)
+			GPIOC_PCLK_DI();
+
+		else if(pGPIOx ==  GPIOD)
+			GPIOD_PCLK_DI();
+
+		else if(pGPIOx ==  GPIOE)
+			GPIOE_PCLK_DI();
+
+		else if(pGPIOx == GPIOF)
+			GPIOF_PCLK_DI();
 
 	}
 }
