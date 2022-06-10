@@ -105,6 +105,8 @@
 
 #define RCC							((RCC_RegDef_t*)RCC_BASEADDR)
 
+#define EXTI						((RCC_RegDef_t*)EXTI_BASEADDR)
+
 /*
  * Register peripheral structure for GPIO
  */
@@ -147,6 +149,22 @@ typedef struct
 
 
 }RCC_RegDef_t;
+
+/*
+ * Register peripheral structure for EXTI
+ */
+
+typedef struct
+{
+	__vo uint32_t IMR;
+	__vo uint32_t EMR;
+	__vo uint32_t RTSR;
+	__vo uint32_t FTSR;
+	__vo uint32_t SWIER;
+	__vo uint32_t PR;
+
+}EXTI_RegDef_t;
+
 
 /*
  *  Clock Management Macros for GPIOx
