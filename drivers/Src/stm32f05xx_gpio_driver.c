@@ -30,7 +30,23 @@ void GPIO_Init(GPIO_Handle_t *pGPIO_Handle)
 		temp = 0;
 	}else
 	{
-				// interrupt mode
+		if(pGPIO_Handle->GPIO_PinConfig.GPIO_PinMode == GPIO_IT_FT)
+		{
+			//1. configure the FTSR
+		}else if(pGPIO_Handle->GPIO_PinConfig.GPIO_PinMode == GPIO_IT_RT)
+		{
+			//1.configure the RTSR
+		}else if(pGPIO_Handle->GPIO_PinConfig.GPIO_PinMode == GPIO_IT_RFT)
+		{
+			//1 configure both FTSR and RTSR
+		}
+
+		//2. Configure the GPIO port selection in SYSCFG_EXTICR
+
+
+		//3. Enable the EXTI interrupt delivery using IMR
+
+
 	}
 	//2. Set speed of port
 

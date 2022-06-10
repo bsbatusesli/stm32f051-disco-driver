@@ -8,7 +8,9 @@
 
 #include "stm32f05xx.h"
 
-#define BTN_PRESSED 		1
+#define HIGH 				1
+#define LOW					0
+#define BTN_PRESSED 		HIGH
 
 void delay() {
 	for(uint32_t i = 0; i < 500000; i++);
