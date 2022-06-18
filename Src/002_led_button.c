@@ -7,10 +7,11 @@
 
 
 #include "stm32f05xx.h"
+#include <string.h>
 
 #define HIGH 				1
 #define LOW					0
-#define BTN_PRESSED 		HIGH
+#define BTN_PRESSED 		LOW
 
 void delay() {
 	for(uint32_t i = 0; i < 500000; i++);
@@ -20,6 +21,8 @@ int main(void)
 {
 	GPIO_Handle_t GpioLed;
 	GPIO_Handle_t GpioBtn;
+	memset(&GpioLed, 0, sizeof(GpioLed));
+	memset(&GpioBtn, 0, sizeof(GpioBtn));
 
 	GpioLed.pGPIOx = GPIOC;
 	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_9;
@@ -32,8 +35,8 @@ int main(void)
 
 	GPIO_Init(&GpioLed);
 
-	GpioBtn.pGPIOx = GPIOA;
-	GpioBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_0;
+	GpioBtn.pGPIOx = GPIOC;
+	GpioBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_5;
 	GpioBtn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IN;
 	GpioBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 	GpioBtn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_HIGH;
