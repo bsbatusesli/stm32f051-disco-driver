@@ -200,6 +200,7 @@ typedef struct
 typedef struct
 {
 	__vo uint32_t CFGR1;
+	__vo uint32_t rsv;
 	__vo uint32_t EXTICR[4];
 	__vo uint32_t CFGR2;
 
