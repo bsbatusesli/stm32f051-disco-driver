@@ -12,9 +12,29 @@
 
 #define __vo volatile
 
+/**************** MCU Specific Macros for M0 Cortex **********
+ *
+ */
+
+#define NVIC_ISER  					((__vo uint32_t*)0xE000E100)
+#define NVIC_ICER  					((__vo uint32_t*)0xE000E180)
+#define NVIC_ISPR  					((__vo uint32_t*)0xE000E200)
+#define NVIC_ICPR  					((__vo uint32_t*)0xE000E280)
+
+
+#define NVIC_PR_BASEADDR 			((__vo uint32_t*)0xE000E400)
+
+/*
+ * NVIC PR Register number of bits implemented
+ */
+#define NO_PR_BITS_IMPLEMENTED		2
+
+
+
+
 /*
  * SRAM and FLASH adresses
-  */
+ */
 
 #define FLASH_BASEADDR				0x08000000U
 #define SRAM1_BASEADDR				0x20000000U
@@ -55,7 +75,8 @@
 /*
  * APB PERIPHERALS
  */
-#define EXTI_BASEADDR				(APB_BASEADDR + 0x4000)
+#define SYSCFG_BASEADDR				(APB_BASEADDR)
+#define EXTI_BASEADDR				(APB_BASEADDR + 0x0400)
 #define ADC_BASEADDR				(APB_BASEADDR + 0x2400)
 #define DBGMCU_BASEADDR				(APB_BASEADDR + 0x5800)
 #define RTC_BASEADDR				(APB_BASEADDR + 0x2800)
@@ -92,6 +113,9 @@
 #define IWDC_BASEADDR				(APB_BASEADDR + 0x3000)
 
 
+
+
+
 /*
  *  PERIPHERAL DEFINATION
  */
@@ -105,7 +129,9 @@
 
 #define RCC							((RCC_RegDef_t*)RCC_BASEADDR)
 
-#define EXTI						((RCC_RegDef_t*)EXTI_BASEADDR)
+#define EXTI						((EXTI_RegDef_t*)EXTI_BASEADDR)
+
+#define SYSCFG						((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
 
 /*
  * Register peripheral structure for GPIO
@@ -166,6 +192,19 @@ typedef struct
 }EXTI_RegDef_t;
 
 
+
+/*
+ * Register peripheral structure for SYSCFG
+ */
+
+typedef struct
+{
+	__vo uint32_t CFGR1;
+	__vo uint32_t EXTICR[4];
+	__vo uint32_t CFGR2;
+
+}SYSCFG_RegDef_t;
+
 /*
  *  Clock Management Macros for GPIOx
  */
@@ -217,6 +256,22 @@ typedef struct
 #define GPIOD_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 20));(RCC ->AHBRSTR &= ~(1 << 20));} while(0)
 #define GPIOE_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 21));(RCC ->AHBRSTR &= ~(1 << 21));} while(0)
 #define GPIOF_REG_RESET() 		do{(RCC ->AHBRSTR |= (1 << 22));(RCC ->AHBRSTR &= ~(1 << 22));} while(0)
+
+#define GPIO_BASEADDR_TO_PORT_CODE(baseAddr) 	((baseAddr == GPIOA) ? 0:\
+												(baseAddr == GPIOB) ? 1:\
+												(baseAddr == GPIOC) ? 2:\
+												(baseAddr == GPIOD) ? 3:\
+												(baseAddr == GPIOE) ? 4:\
+												(baseAddr == GPIOF) ? 5:0)
+
+
+/*
+ * IRQ Number Macros
+ */
+#define IRQ_NO_EXTI0_1			5
+#define IRQ_NO_EXTI2_3			6
+#define IRQ_NO_EXTI4_15			7
+
 
 /*
  * General macros
