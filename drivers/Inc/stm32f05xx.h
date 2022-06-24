@@ -309,6 +309,53 @@ typedef struct
 #define GPIO_PIN_RESET		RESET
 
 
+/***************
+ *  SPI Peripherals Bit Positions
+ ****************/
+#define SPIx_CR1_CPHA		0
+#define SPIx_CR1_CPOL		1
+#define SPIx_CR1_MSTR		2
+#define SPIx_CR1_BR			3
+#define SPIx_CR1_SPE		6
+#define SPIx_CR1_LSBFIRST	7
+#define SPIx_CR1_SSI		8
+#define SPIx_CR1_SSM		9
+#define SPIx_CR1_RXONLY		10
+#define SPIx_CR1_CRCL		11
+#define SPIx_CR1_CRCNEXT	12
+#define SPIx_CR1_CRCEN		13
+#define SPIx_CR1_BIDIOE		14
+#define SPIx_CR1_BIDIMODE	15
+
+#define SPIx_CR2_RXDMAEN	0
+#define SPIx_CR2_TXDMAEN	1
+#define SPIx_CR2_SSOE		2
+#define SPIx_CR2_NSSP		3
+#define SPIx_CR2_FRF		4
+#define SPIx_CR2_ERRIE		5
+#define SPIx_CR2_RXNEIE		6
+#define SPIx_CR2_TXEIE		7
+#define SPIx_CR2_DS			8
+#define SPIx_CR2_FRXTH		12
+#define SPIx_CR2_LDMA_RX	13
+#define SPIx_CR2_LDMA_TX	14
+
+#define SPIx_SR_RXNE		0
+#define SPIx_SR_TXE			1
+#define SPIx_SR_CHSIDE		2
+#define SPIx_SR_UDR			3
+#define SPIx_SR_CRCERR		4
+#define SPIx_SR_MODF		5
+#define SPIx_SR_OVR			6
+#define SPIx_SR_BSY			7
+#define SPIx_SR_FRE			8
+#define SPIx_SR_FRLVL		9
+#define SPIx_SR_FTLVL		11
+#define SPIx_CR2_LDMA_TX	14
+
+
+
+
 // Drivers
 #include "stm32f05xx_gpio_driver.h"
 #include "stm32f05xx_spi_driver.h"

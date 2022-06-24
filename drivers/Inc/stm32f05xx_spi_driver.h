@@ -11,7 +11,7 @@
 #include "stm32f05xx.h"
 
 /*
- * This is configuration structure for GPIO
+ * This is configuration structure for SPI
  */
 
 typedef struct
@@ -27,7 +27,7 @@ typedef struct
 
 
 /*!
- *  This is handle structure for GPIO
+ *  This is handle structure for SPI
  */
 typedef struct
 {
@@ -55,8 +55,8 @@ typedef struct
 /*
  * @SPI_DFF
  */
-#define SPI_DFF_8BIT 					0
-#define SPI_DFF_16BIT					1
+#define SPI_DFF_8BIT 					7
+#define SPI_DFF_16BIT					15
 
 /*
  * @SPI_CPHA
@@ -93,11 +93,11 @@ typedef struct
  *  								FUNCTION PROTOTYPES FOR SPI DRIVER
  ***********************************************************************************************/
 
-/* GPIO init and DeInit */
+/* SPI init and DeInit */
 void SPI_Init(SPI_Handle_t *pSPI_Handle);
 void SPI_DeInit(SPI_RegDef_t *pSPIx);
 
-/* GPIO Peripheral Clock Setup*/
+/* SPI Peripheral Clock Setup*/
 void SPI_PeripClockControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
 /* Data Recieve & Send */
