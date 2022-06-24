@@ -285,6 +285,9 @@ typedef struct
 												(baseAddr == GPIOF) ? 5:0)
 
 
+#define SPI1_REG_RESET() 		do{(RCC->APB2RSTR |= (1<<12));(RCC->APB2RSTR &= ~(1<<12));} while(0)
+#define SPI2_REG_RESET() 		do{(RCC->APB1RSTR |= (1<<14));(RCC->APB1RSTR &= ~(1<<14));} while(0)
+
 /*
  * IRQ Number Macros
  */
@@ -308,6 +311,7 @@ typedef struct
 
 // Drivers
 #include "stm32f05xx_gpio_driver.h"
+#include "stm32f05xx_spi_driver.h"
 
 
 #endif /* STM32F05XX_H_ */
