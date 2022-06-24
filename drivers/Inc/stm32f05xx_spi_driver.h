@@ -16,13 +16,13 @@
 
 typedef struct
 {
-	uint8_t SPI_DeviceMode;					/* possible values: @ */
-	uint8_t SPI_BusConfig;					/* possible values: @ */
-	uint8_t SPI_DFF;					/* possible values: @ */
-	uint8_t SPI_CPHA;			/* possible values: @ */
-	uint8_t SPI_CPOL;					/* possible values: @ */
-	uint8_t SPI_SSM;				/* possible values: @ */
-	uint8_t SPI_Speed;
+	uint8_t SPI_DeviceMode;					/* possible values: @SPI_DeviceMode */
+	uint8_t SPI_BusConfig;					/* possible values: @SPI_BusConfig */
+	uint8_t SPI_DFF;						/* possible values: @SPI_DFF */
+	uint8_t SPI_CPHA;						/* possible values: @SPI_CPHA */
+	uint8_t SPI_CPOL;						/* possible values: @SPI_CPOL */
+	uint8_t SPI_SSM;						/* possible values: @SPI_SSM */
+	uint8_t SPI_SCLK;						/* possible values: @SPI_SCLK */
 }SPI_Config_t;
 
 
@@ -35,6 +35,58 @@ typedef struct
 	SPI_Config_t SPI_Config;				/* Holds configuration structure*/
 }SPI_Handle_t;
 
+/***********************************************************************************************
+ *  								Possible Register Macros
+ ***********************************************************************************************/
+
+/*
+ * @SPI_DeviceMode
+ */
+#define SPI_DEVICE_MODE_MASTER 	1
+#define SPI_DEVICE_MODE_SLAVE 	0
+
+/*
+ * @SPI_BusConfig
+ */
+#define SPI_BUS_CONFIG_FD 				0
+#define SPI_BUS_CONFIG_HD 				1
+#define SPI_BUS_CONFIG_SIMPLEX_RXONLY 	2
+
+/*
+ * @SPI_DFF
+ */
+#define SPI_DFF_8BIT 					0
+#define SPI_DFF_16BIT					1
+
+/*
+ * @SPI_CPHA
+ */
+#define SPI_CPHA_FIRST					0
+#define SPI_CPHA_SECOND					1
+
+/*
+ * @SPI_CPOL
+ */
+#define SPI_CPOL_LOW					0
+#define SPI_CPOL_HIGH					1
+
+/*
+ * @SPI_SSM
+ */
+#define SPI_SSM_DI						0
+#define SPI_SSM_EN						1
+
+/*
+ * @SPI_SCLK
+ */
+#define SPI_SCLK_DIV2					0
+#define SPI_SCLK_DIV4					1
+#define SPI_SCLK_DIV8					2
+#define SPI_SCLK_DIV16					3
+#define SPI_SCLK_DIV32					4
+#define SPI_SCLK_DIV64					5
+#define SPI_SCLK_DIV128					6
+#define SPI_SCLK_DIV256					7
 
 
 /***********************************************************************************************
