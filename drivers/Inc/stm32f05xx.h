@@ -133,6 +133,9 @@
 
 #define SYSCFG						((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
 
+#define SPI1						((SPI_RegDef_t*)SPI1_I2S1_BASEADDR)
+#define SPI2						((SPI_RegDef_t*)SPI2_BASEADDR)
+
 /*
  * Register peripheral structure for GPIO
  */
@@ -205,6 +208,22 @@ typedef struct
 	__vo uint32_t CFGR2;
 
 }SYSCFG_RegDef_t;
+
+/*
+ *  Register peripheral structure for SPI
+ */
+typedef struct
+{
+	__vo uint32_t CR1;
+	__vo uint32_t CR2;
+	__vo uint32_t SR;
+	__vo uint32_t DR;
+	__vo uint32_t CRCPR;
+	__vo uint32_t RXCRCR;
+	__vo uint32_t TXCRCR;
+	__vo uint32_t I2DCFGR;
+	__vo uint32_t I2SPR;
+}SPI_RegDef_t;
 
 /*
  *  Clock Management Macros for GPIOx
