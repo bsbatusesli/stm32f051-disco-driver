@@ -30,6 +30,8 @@ void SPI_PeripClockControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
 /* GPIO init and DeInit */
 void SPI_Init(SPI_Handle_t *pSPI_Handle)
 {
+	SPI_PeripClockControl(pSPI_Handle->pSPIx, ENABLE);
+
 	uint16_t temp_reg = 0;
 
 	// setting device mod
@@ -76,6 +78,17 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx)
 
 	else if(pSPIx == SPI2)
 		SPI2_REG_RESET();
+}
+
+void SPI_Perip_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
+{
+	if(EnOrDi == ENABLE)
+	{
+		pSPIx->CR1 |= (1 << SPIx_CR1_SPE);
+	}else
+	{
+		pSPIx->CR1 &= ~(1 << SPIx_CR1_SPE);
+	}
 }
 
 
