@@ -111,5 +111,6 @@ void SPI_IRQHandle(SPI_Handle_t *pHandle);
 
 /* Other Peripheral APIs */
 void SPI_Perip_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
+void SPI_SSI_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
 #endif /* INC_STM32F05XX_SPI_DRIVER_H_ */

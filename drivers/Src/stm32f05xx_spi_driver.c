@@ -82,12 +82,23 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx)
 
 void SPI_Perip_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
 {
-	if(EnOrDi == ENABLE)
+	if(EnorDi == ENABLE)
 	{
 		pSPIx->CR1 |= (1 << SPIx_CR1_SPE);
 	}else
 	{
 		pSPIx->CR1 &= ~(1 << SPIx_CR1_SPE);
+	}
+}
+
+void SPI_SSI_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
+{
+	if(EnorDi == ENABLE)
+	{
+		pSPIx->CR1 |= (1 << SPIx_CR1_SSI);
+	}else
+	{
+		pSPIx->CR1 &= ~(1 << SPIx_CR1_SSI);
 	}
 }
 
@@ -116,7 +127,7 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t len)
 		while(! (pSPIx->SR & (1 << SPIx_SR_TXE)) );
 
 		//check data size
-		if(pSPIx->CR2 & (0xF << SPIx_CR2_DS)) // Data size = 16 bit
+		if( ((pSPIx->CR2) & (0xF << SPIx_CR2_DS)) == (0xF << SPIx_CR2_DS)) // Data size = 16 bit
 		{
 			//load data to DF
 			pSPIx->DR = *(uint16_t*)pTxBuffer;
@@ -126,7 +137,7 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t len)
 			//increment pTxBuffer
 			(uint16_t*)pTxBuffer++;
 
-		}else if (pSPIx->CR2 & (0x8 << SPIx_CR2_DS)) // data size = 8 bit
+		}else if (((pSPIx->CR2) & (0x7 << SPIx_CR2_DS)) == (0x7 << SPIx_CR2_DS)) // data size = 8 bit
 		{
 			//load data to DF
 			pSPIx->DR = *pTxBuffer;
