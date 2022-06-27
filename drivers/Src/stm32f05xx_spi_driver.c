@@ -102,6 +102,17 @@ void SPI_SSI_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
 	}
 }
 
+void SPI_SSOI_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
+{
+	if(EnorDi == ENABLE)
+	{
+		pSPIx->CR1 |= (1 << SPIx_CR2_SSOE);
+	}else
+	{
+		pSPIx->CR1 &= ~(1 << SPIx_CR2_SSOE);
+	}
+}
+
 
 
 
@@ -170,4 +181,13 @@ void SPI_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
 void SPI_IRQHandle(SPI_Handle_t *pSPI_Handle)
 {
 
+}
+
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx , uint32_t FlagName)
+{
+	if(pSPIx->SR & FlagName)
+	{
+		return FLAG_SET;
+	}
+	return FLAG_RESET;
 }
