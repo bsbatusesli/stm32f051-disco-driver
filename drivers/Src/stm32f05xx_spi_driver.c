@@ -102,14 +102,14 @@ void SPI_SSI_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
 	}
 }
 
-void SPI_SSOI_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
+void SPI_SSOE_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
 {
 	if(EnorDi == ENABLE)
 	{
-		pSPIx->CR1 |= (1 << SPIx_CR2_SSOE);
+		pSPIx->CR2 |= (1 << SPIx_CR2_SSOE);
 	}else
 	{
-		pSPIx->CR1 &= ~(1 << SPIx_CR2_SSOE);
+		pSPIx->CR2 &= ~(1 << SPIx_CR2_SSOE);
 	}
 }
 
