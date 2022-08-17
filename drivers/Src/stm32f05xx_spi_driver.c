@@ -129,7 +129,7 @@ void SPI_SSOE_Control(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
  *
  * !Note!: 			this is blocking call.
  * --------------------------------------------------------------------------*/
-
+//Buggy
 void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t len)
 {
 	while(len > 0)
@@ -172,10 +172,22 @@ void SPI_RecieveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t len)
 /* Interrupt Config and Handling */
 void SPI_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi)
 {
-
+	if( EnorDi == ENABLE)
+	{
+		*NVIC_ISER |= (1 << IRQNumber);
+	}else
+	{
+		*NVIC_ICER |= (1 << IRQNumber);
+	}
 }
 void SPI_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority)
 {
+	uint8_t ipr_index = IRQNumber / 4;
+	uint8_t ipr_offset = IRQNumber % 4;
+
+	uint8_t shift_amount = (8 * ipr_offset) + (8 - NO_PR_BITS_IMPLEMENTED);
+
+	*(NVIC_PR_BASEADDR + ipr_index) |= (IRQPriority << shift_amount); // Just adding ipr_index because nvic pointer is 32 bit. Adding 1 is enough for step up 32 bit
 
 }
 void SPI_IRQHandle(SPI_Handle_t *pSPI_Handle)
@@ -185,9 +197,44 @@ void SPI_IRQHandle(SPI_Handle_t *pSPI_Handle)
 
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx , uint32_t FlagName)
 {
-	if(pSPIx->SR & FlagName)
+	if((pSPIx->SR >> FlagName) % 2 == 1)
 	{
 		return FLAG_SET;
 	}
 	return FLAG_RESET;
+}
+
+uint8_t SPI_SendDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t len)
+{
+	uint8_t status = pSPIHandle->TxState;
+
+	if(status != SPI_BUSY_IN_TX)
+	{
+		// Save the TX buffer and len info
+		pSPIHandle->pTxBuffer = pTxBuffer;
+		pSPIHandle->TxLen = len;
+		//Mark the SPI status Busy so no other code can takeover
+		pSPIHandle->TxState=SPI_BUSY_IN_TX;
+		//Enable TXIEI control bit to get TXE flag
+		pSPIHandle->pSPIx->CR2 |= (1 << SPIx_CR2_TXEIE);
+		//Data transmisssion handled by ISR code
+	}
+	return status;
+}
+uint8_t SPI_RecieveDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t len)
+{
+	uint8_t status = pSPIHandle->RxState;
+
+	if(status != SPI_BUSY_IN_RX)
+	{
+		// Save the TX buffer and len info
+		pSPIHandle->pRxBuffer = pTxBuffer;
+		pSPIHandle->RxLen = len;
+		//Mark the SPI status Busy so no other code can takeover
+		pSPIHandle->RxState=SPI_BUSY_IN_TX;
+		//Enable TXIEI control bit to get TXE flag
+		pSPIHandle->pSPIx->CR2 |= (1 << SPIx_CR2_RXNEIE);
+		//Data transmisssion handled by ISR code
+	}
+	return status;
 }

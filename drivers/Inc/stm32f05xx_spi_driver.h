@@ -31,8 +31,14 @@ typedef struct
  */
 typedef struct
 {
-	SPI_RegDef_t *pSPIx; 					/* Holds base address of SPI*/
-	SPI_Config_t SPI_Config;				/* Holds configuration structure*/
+	SPI_RegDef_t	*pSPIx; 					/* Holds base address of SPI*/
+	SPI_Config_t 	SPI_Config;				/* Holds configuration structure*/
+	uint8_t 		*pTxBuffer;				// Stores the app. Tx address
+	uint8_t			*pRxBuffer;				// Stores the app. Rx address
+	uint32_t		TxLen;
+	uint32_t		RxLen;
+	uint8_t			TxState;				/* */
+	uint8_t			RxState;
 }SPI_Handle_t;
 
 /***********************************************************************************************
@@ -88,6 +94,13 @@ typedef struct
 #define SPI_SCLK_DIV128					6
 #define SPI_SCLK_DIV256					7
 
+/*
+ * @SPI_States
+ */
+#define SPI_READY						0
+#define SPI_BUSY_IN_RX					1
+#define SPI_BUSY_IN_TX					2
+
 
 /***********************************************************************************************
  *  								FUNCTION PROTOTYPES FOR SPI DRIVER
@@ -103,6 +116,9 @@ void SPI_PeripClockControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 /* Data Recieve & Send */
 void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t len);
 void SPI_RecieveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t len);
+
+uint8_t SPI_SendDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t len);
+uint8_t SPI_RecieveDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t len);
 
 /* Interrupt Config and Handling */
 void SPI_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi);

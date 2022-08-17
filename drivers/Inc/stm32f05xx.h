@@ -295,6 +295,9 @@ typedef struct
 #define IRQ_NO_EXTI2_3			6
 #define IRQ_NO_EXTI4_15			7
 
+#define IRQ_NO_SPI_1			25
+#define IRQ_NO_SPI_2			26
+
 
 /*
  * General macros
